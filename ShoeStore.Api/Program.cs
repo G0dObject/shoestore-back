@@ -1,4 +1,5 @@
 
+using Notes.Api.Services;
 using Notes.Persistent.DependencyInjection;
 using ShoeStore.Application.Interfaces.Servises;
 using ShoeStore.Persistence;
@@ -20,7 +21,7 @@ namespace ShoeStore.Api
 			builder.Services.AddIdentityDependency();
 			builder.Services.AddAuthenticationDependency(builder.Configuration);
 			builder.Services.AddAuthorizationBuilderDependency();
-			//builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
+			builder.Services.AddSingleton<IJwtTokenGenerator, JwtTokenGenerator>();
 
 			_ = builder.Services.AddCors(options =>
 			{
