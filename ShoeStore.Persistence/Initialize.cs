@@ -4,8 +4,9 @@ namespace ShoeStore.Persistent
 {
 	public class DbInitialize
 	{
-		public static void Initialize(Context context)
+		public static async void Initialize(Context context)
 		{
+			//context.Database.EnsureDeleted();
 			context.Database.EnsureCreated();
 		}
 	}

@@ -5,19 +5,25 @@ using ShoeStore.Application.Interfaces;
 using ShoeStore.Domain.Entity.Authorization;
 using ShoeStore.Domain.Entity.Product;
 using ShoeStore.Persistence.EntityTypeConfigurations;
-using ShoeStore.Persistent;
 
 namespace ShoeStore.Persistence
 {
 	public class Context : IdentityDbContext<User, Role, int>, IContext
 	{
-		public Context(DbContextOptions<Context> contextOptions) : base(contextOptions) { DbInitialize.Initialize(this); }
+
+		public Context(DbContextOptions<Context> contextOptions) : base(contextOptions)
+		{
+			//	base.Database.EnsureDeleted();
+			base.Database.EnsureCreated();
+		}
 
 		public DbSet<Product>? Products { get; set; }
+		public DbSet<User>? Users { get; set; }
 
 		protected override void OnModelCreating(ModelBuilder modelBuilder)
 		{
-			modelBuilder.ApplyConfiguration(new ProductConfigurations());
+			modelBuilder.ApplyConfiguration(new ProductTypeConfigurations());
+			modelBuilder.ApplyConfiguration(new UserTypeConfiguration());
 			base.OnModelCreating(modelBuilder);
 		}
 	}
